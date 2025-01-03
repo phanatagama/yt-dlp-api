@@ -13,8 +13,8 @@ async def extract_video_info(video_url: str = ''):
     with open(cookies_file, 'r') as f:
         cookies = f.read()
     ydl_opts = {
-        'cookies': cookies
-        'po_token':f"web+{po_token}"
+        'cookies': cookies,
+        'po_token':f"web+{po_token}",
         'quiet': True,
         'simulate': True,
     }
