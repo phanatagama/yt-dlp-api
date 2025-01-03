@@ -8,8 +8,8 @@ def test_get_api_version():
     response = client.get('/')
 
     assert response.status_code == 200
-    assert response.json()['version'] == '0.1.0'
-    assert response.json() == {'version': '0.1.0'}
+    assert response.json()['version'] == '0.0.1'
+    assert response.json() == {'version': '0.0.1'}
 
 def test_extract_video_info_on_invalid_url():
     invalid_url = 'https://invalid.url'
