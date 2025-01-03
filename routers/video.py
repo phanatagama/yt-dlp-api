@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 
 async def get_api_version():
     return {
-        'version': '0.1.0',
+        'version': '0.0.1',
     }
 
 async def extract_video_info(video_url: str = ''):
