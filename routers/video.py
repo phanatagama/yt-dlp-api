@@ -12,6 +12,8 @@ async def extract_video_info(video_url: str = ''):
     cookies_file = "cookies.txt"  # Path to your cookies file
     with open(cookies_file, 'r') as f:
         cookies = f.read()
+
+    print(cookies)
     ydl_opts = {
         'cookies': cookies,
         'po_token':f"web+{po_token}",
