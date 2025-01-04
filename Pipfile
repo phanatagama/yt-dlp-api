@@ -14,3 +14,6 @@ yt_dlp = "*"
 pytest = "*"
 httpx="*"
 pytest-mock = "*"
+
+[requires]
+python_version = "3.9"

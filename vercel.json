@@ -12,7 +12,8 @@
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "/routers/video"
+            "dest": "/main.py"
         }
     ]
 }
+
