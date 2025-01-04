@@ -1,4 +1,6 @@
 import yt_dlp
+import json
+from datetime import datetime
 
 yt_url = "https://www.youtube.com/watch?v=spaDwYnjARY"
 tiktok_url = "https://www.tiktok.com/@kevinyowilliam/video/7451188243732696326"
@@ -9,6 +11,8 @@ def extract_yt(video_url):
             'cookiefile': 'cookies.txt',
             'quiet': True,
             'simulate': True,
+            "skip_download": True,
+            "format": "best",
         }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -26,7 +30,10 @@ def extract_yt(video_url):
         return response
 
 def extract_insta(url):
-    ydl_opts ={}
+    ydl_opts ={
+        "skip_download": True,
+        "format": "best",
+    }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(url, download=False)
         return info
@@ -44,37 +51,30 @@ def extract_insta(url):
 # api16-normal-c.tiktokv.com
 def extract_tiktok(url):
     ydl_opts ={
+        "skip_download": True,
+        "format": "best",
         "extractor_args": {
             "tiktok": {
-                "api_hostname":"api22-normal-v4.tiktokv.com",
-                "device_id": "7137940314170508802",
-                "app_version":"34.0.3",
-                "manifest_app_version": "340003",
-                "aid": "7137940811609768961"
+                # "api_hostname": ["api16-normal-c-useast1a.tiktokv.com"],
+                "app_info": ["7318518857994389254"],
+                "device_id": ["7318517321748022790"],
+                "app_version":["34.0.3"],
+                "manifest_app_version": ["340003"],
+                "aid": ["7137940811609768961"]
             }
         },
-        # "check_formats": True,
-        # "skip_download": True,
-        # "listformats": True,
-        
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(url, download=False)
         return info
 
 
-# res = extract_yt(yt_url)
+def write_file(data):
+    with open(f"{datetime.now()}-result.json", "w") as outfile: 
+        json.dump(data, outfile)
+
+res = extract_yt(yt_url)
 # res = extract_insta(ig_url)
-res = extract_tiktok(tiktok_url)
+# res = extract_tiktok(tiktok_url)
+write_file(res)
 # print(res)
-
-# cook = "ttwid=1%7CR1vh5IPLInokk0i-VGDupuI_V03hKIG4KBc_SL4eWaI%7C1735976821%7Cddb4ce48712f3cfdb72c2450e5187a1ad46193ad0bda211b656eafa097e552b8; Domain=.tiktok.com; Path=/; Expires=1767080821; tt_csrf_token=5ZFB7PJC-PCGNIuC0VsE_zN1RMYEf6ZdJQks; Domain=.tiktok.com; Path=/; Secure; tt_chain_token=\"8RARp65HlMVTkXVsoI2m/A==\"; Domain=.tiktok.com; Path=/; Secure; Expires=1751528821".split("; ")
-# cookJson = {}
-# for i in cook:
-#     if("=" in i):
-#         cookJson[i.split("=")[0]] =i.split("=")[1]
-
-import json
-from datetime import datetime
-with open(f"{datetime.now()}-result.json", "w") as outfile: 
-    json.dump(res, outfile)
