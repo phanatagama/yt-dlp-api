@@ -1,0 +1,48 @@
+ID                     EXT RESOLUTION │   FILESIZE  TBR PROTO │ VCODEC ACODEC MORE INFO
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+download_addr-0        mp4 720x1280   │  750.60KiB      https │ h264   aac    Download video, watermarked (API)
+download_addr-1        mp4 720x1280   │  750.60KiB      https │ h264   aac    Download video, watermarked
+download_addr-2        mp4 720x1280   │  750.60KiB      https │ h264   aac    Download video, watermarked
+h264_540p_460442-0     mp4 576x1024   │    1.11MiB 460k https │ h264   aac    Direct video (API)
+h264_540p_460442-1     mp4 576x1024   │    1.11MiB 460k https │ h264   aac    Direct video
+h264_540p_460442-2     mp4 576x1024   │    1.11MiB 460k https │ h264   aac    Direct video
+bytevc1_540p_172205-0  mp4 576x1024   │  423.24KiB 172k https │ h265   aac    Playback video (API)
+bytevc1_540p_172205-1  mp4 576x1024   │  423.24KiB 172k https │ h265   aac    Playback video
+bytevc1_540p_172205-2  mp4 576x1024   │  423.24KiB 172k https │ h265   aac    Playback video
+bytevc1_540p_192510-0  mp4 576x1024   │  473.14KiB 192k https │ h265   aac    Playback video (API)
+bytevc1_540p_192510-1  mp4 576x1024   │  473.14KiB 192k https │ h265   aac    Playback video
+bytevc1_540p_192510-2  mp4 576x1024   │  473.14KiB 192k https │ h265   aac    Playback video
+bytevc1_540p_275877-0  mp4 576x1024   │  678.04KiB 275k https │ h265   aac    Direct video (API)
+bytevc1_540p_275877-1  mp4 576x1024   │  678.04KiB 275k https │ h265   aac    Direct video
+bytevc1_540p_275877-2  mp4 576x1024   │  678.04KiB 275k https │ h265   aac    Direct video
+bytevc1_720p_362792-0  mp4 720x1280   │  891.66KiB 362k https │ h265   aac    Playback video (API)
+bytevc1_720p_362792-1  mp4 720x1280   │  891.66KiB 362k https │ h265   aac    Playback video
+bytevc1_720p_362792-2  mp4 720x1280   │  891.66KiB 362k https │ h265   aac    Playback video
+bytevc1_1080p_515086-0 mp4 1080x1920  │    1.24MiB 515k https │ h265   aac    Playback video (API)
+bytevc1_1080p_515086-1 mp4 1080x1920  │    1.24MiB 515k https │ h265   aac    Playback video
+bytevc1_1080p_515086-2 mp4 1080x1920  │    1.24MiB 515k https │ h265   aac    Playback video
+
+===
+ID                     EXT RESOLUTION │   FILESIZE  TBR PROTO │ VCODEC ACODEC MORE INFO
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+download_addr-0        mp4 720x1280   │  750.60KiB      https │ h264   aac    Download video, watermarked (API)
+download_addr-1        mp4 720x1280   │  750.60KiB      https │ h264   aac    Download video, watermarked
+download_addr-2        mp4 720x1280   │  750.60KiB      https │ h264   aac    Download video, watermarked
+h264_540p_460442-0     mp4 576x1024   │    1.11MiB 460k https │ h264   aac    Direct video (API)
+h264_540p_460442-1     mp4 576x1024   │    1.11MiB 460k https │ h264   aac    Direct video
+h264_540p_460442-2     mp4 576x1024   │    1.11MiB 460k https │ h264   aac    Direct video
+bytevc1_540p_172205-0  mp4 576x1024   │  423.24KiB 172k https │ h265   aac    Playback video (API)
+bytevc1_540p_172205-1  mp4 576x1024   │  423.24KiB 172k https │ h265   aac    Playback video
+bytevc1_540p_172205-2  mp4 576x1024   │  423.24KiB 172k https │ h265   aac    Playback video
+bytevc1_540p_192510-0  mp4 576x1024   │  473.14KiB 192k https │ h265   aac    Playback video (API)
+bytevc1_540p_192510-1  mp4 576x1024   │  473.14KiB 192k https │ h265   aac    Playback video
+bytevc1_540p_192510-2  mp4 576x1024   │  473.14KiB 192k https │ h265   aac    Playback video
+bytevc1_540p_275877-0  mp4 576x1024   │  678.04KiB 275k https │ h265   aac    Direct video (API)
+bytevc1_540p_275877-1  mp4 576x1024   │  678.04KiB 275k https │ h265   aac    Direct video
+bytevc1_540p_275877-2  mp4 576x1024   │  678.04KiB 275k https │ h265   aac    Direct video
+bytevc1_720p_362792-0  mp4 720x1280   │  891.66KiB 362k https │ h265   aac    Playback video (API)
+bytevc1_720p_362792-1  mp4 720x1280   │  891.66KiB 362k https │ h265   aac    Playback video
+bytevc1_720p_362792-2  mp4 720x1280   │  891.66KiB 362k https │ h265   aac    Playback video
+bytevc1_1080p_515086-0 mp4 1080x1920  │    1.24MiB 515k https │ h265   aac    Playback video (API)
+bytevc1_1080p_515086-1 mp4 1080x1920  │    1.24MiB 515k https │ h265   aac    Playback video
+bytevc1_1080p_515086-2 mp4 1080x1920  │    1.24MiB 515k https │ h265   aac    Playback video
