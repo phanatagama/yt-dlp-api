@@ -7,6 +7,11 @@ async def get_api_version():
         'version': '0.0.1',
     }
 
+async def ping():
+    return {
+        'msg': 'pong',
+    }
+
 async def extract_video_info(video_url: str = ''):
     # po_token ="MnQ4RCUX1rkNwTh8YuYQC-fXgf_g3KsJY3NyPsBPBUBzQRBT6q0ZHOE7QPT4k8WRvAXqpRUps_NkCGVvZN6OuwYL0ItXqkMi4iqfWjvDrKduMM2kckSI7nwU1W2ElNr_1aqIQ1M3gLWQqxM9IunkAos9X4dCSA=="
     # cookies_file = "cookies.txt"  # Path to your cookies file
