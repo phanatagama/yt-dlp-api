@@ -1,5 +1,7 @@
 import yt_dlp
 from urllib.parse import urlparse
+import os
+import shutil
 
 
 async def get_api_version():
