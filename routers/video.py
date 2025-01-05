@@ -1,5 +1,6 @@
 import yt_dlp
 from urllib.parse import urlparse
+import urllib.request as request
 import os
 import shutil
 
@@ -13,6 +14,24 @@ async def get_api_version():
         'version': '0.0.1',
     }
 
+def download_cookies():
+    cookie_blob = os.environ.get("YT_COOKIE")
+    fake_useragent = 'Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25'
+    r = request.Request(cookie_blob, headers={'User-Agent': fake_useragent})
+    f = request.urlopen(r)
+
+    path = "/tmp"
+
+    # Join various path components
+    tmp_cookies = os.path.join(path, "cookies.txt")
+    
+    with open(tmp_cookies, "wb+") as file:
+        file.write(f.read())
+        file.close()
+    f.close()
+    return tmp_cookies
+
+    
 def move_cookie_to_tmp():
     # cookies_file = "cookies.txt"  # Path to your cookies file
     # copy cookies.txt into /tmp
@@ -26,7 +45,8 @@ def move_cookie_to_tmp():
     
 async def extract_video_info(src: str = ''):
     # po_token ="MnQ4RCUX1rkNwTh8YuYQC-fXgf_g3KsJY3NyPsBPBUBzQRBT6q0ZHOE7QPT4k8WRvAXqpRUps_NkCGVvZN6OuwYL0ItXqkMi4iqfWjvDrKduMM2kckSI7nwU1W2ElNr_1aqIQ1M3gLWQqxM9IunkAos9X4dCSA=="
-    tmp_cookies = move_cookie_to_tmp()
+    # tmp_cookies = move_cookie_to_tmp()
+    tmp_cookies = download_cookies()
 
     ydl_opts = {
         'cookiefile': tmp_cookies,
@@ -120,7 +140,8 @@ async def get_tiktok_video(src: str=''):
 
 
 async def get_yt_blob(src:str):
-    tmp_cookies = move_cookie_to_tmp()
+    tmp_cookies = download_cookies()
+    # tmp_cookies = move_cookie_to_tmp()
 
     ydl_opts = {
         'cookiefile': tmp_cookies,
