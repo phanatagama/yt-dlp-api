@@ -119,18 +119,28 @@ async def get_tiktok_video(src: str=''):
         return info
 
 
-async def get_yt_blob():
-    # tmp_cookies = move_cookie_to_tmp()
+async def get_yt_blob(src:str):
+    tmp_cookies = move_cookie_to_tmp()
 
-    # ydl_opts = {
-    #     'cookiefile': tmp_cookies,
-    #     'format': 'best',
-    #     'quiet': True,
-    # }
+    ydl_opts = {
+        'cookiefile': tmp_cookies,
+        'format': 'best',
+        'quiet': True,
+    }
 
-    # with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-    #     info_dict = ydl.extract_info(src, download=False)
-    #     video_url = info_dict['url']
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info_dict = ydl.extract_info(src, download=False)
+        video_url = info_dict['url']
+        def generateStream(url):
+            with ydl.urlopen(url) as stream:
+                while True:
+                    data = stream.read(4 * 1024 * 1024)  # 每次读取4MB数据，可调整大小
+                    print(f"读取了 {len(data)} 字节数据")
+                    if not data:
+                        print("数据流读取完毕。")
+                        break
+                    yield data
+        return StreamingResponse(generateStream(video_url), media_type="video/mp4")
 
     #     if not video_url:
     #         raise HTTPException(status_code=404, detail="Video URL not found")
@@ -143,7 +153,7 @@ async def get_yt_blob():
         #     raise HTTPException(status_code=500, detail="Failed to fetch video")
 
         # return StreamingResponse(BytesIO(response.content), media_type="video/mp4")
-    def iterfile():  # (1)
-        with open('test_vid.mp4', mode="rb") as file_like:  # (2)
-            yield from file_like  # (3)
-    return StreamingResponse(iterfile(), media_type="video/mp4")
+    # def iterfile():  # (1)
+    #     with open('test_vid.mp4', mode="rb") as file_like:  # (2)
+    #         yield from file_like  # (3)
+    # return StreamingResponse(iterfile(), media_type="video/mp4")
