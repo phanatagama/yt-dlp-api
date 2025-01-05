@@ -14,24 +14,30 @@ async def get_api_version():
         'version': '0.0.1',
     }
 
+# download cookie and save into /tmp directory
 def download_cookies():
+    # get cookie from env blob url 
     cookie_blob = os.environ.get("YT_COOKIE")
+
+    # create request to open it
     fake_useragent = 'Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25'
     r = request.Request(cookie_blob, headers={'User-Agent': fake_useragent})
     f = request.urlopen(r)
 
+    # path for store cookie is /tmp
     path = "/tmp"
 
     # Join various path components
     tmp_cookies = os.path.join(path, "cookies.txt")
     
+    # write cookie into /tmp
     with open(tmp_cookies, "wb+") as file:
         file.write(f.read())
         file.close()
     f.close()
     return tmp_cookies
 
-    
+# yt-dlp will rewrite cookie, so we need to locate the cookie into /tmp which has access to write
 def move_cookie_to_tmp():
     # cookies_file = "cookies.txt"  # Path to your cookies file
     # copy cookies.txt into /tmp
@@ -45,7 +51,7 @@ def move_cookie_to_tmp():
     
 async def extract_video_info(src: str = ''):
     # po_token ="MnQ4RCUX1rkNwTh8YuYQC-fXgf_g3KsJY3NyPsBPBUBzQRBT6q0ZHOE7QPT4k8WRvAXqpRUps_NkCGVvZN6OuwYL0ItXqkMi4iqfWjvDrKduMM2kckSI7nwU1W2ElNr_1aqIQ1M3gLWQqxM9IunkAos9X4dCSA=="
-    # tmp_cookies = move_cookie_to_tmp()
+    # download cookie before use it
     tmp_cookies = download_cookies()
 
     ydl_opts = {
@@ -58,15 +64,19 @@ async def extract_video_info(src: str = ''):
 
     response = {'error': None}
 
+    # make sure the url is valid youtube source
     parsed_url_result = urlparse(src)
     if parsed_url_result.netloc != 'www.youtube.com':
         response['error'] = 'Unsupported %s!' % src
 
         return response
 
+    # extract video information
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         try:
             info = ydl.extract_info(src, download=False)
+            
+            # filter response only for neccessary data
             response = info.copy()
             response["formats"] = []
             del response["thumbnails"]
@@ -100,6 +110,8 @@ async def extract_video_info(src: str = ''):
 
 async def get_reel_video(src: str =''):
     url = src
+
+    # make sure it valid instagram url
     parsed_url_result = urlparse(url)
     if parsed_url_result.netloc != 'www.instagram.com':
         return json({"Error": f"Unsupported url {url}"})
@@ -108,6 +120,8 @@ async def get_reel_video(src: str =''):
         "skip_download": True,
         "format": "best",
     }
+
+    # extract information
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(url, download=False)
         return info
@@ -116,10 +130,13 @@ async def get_reel_video(src: str =''):
 async def get_tiktok_video(src: str=''):
     url = src
 
+    # make sure it valid tiktok url
     parsed_url_result = urlparse(url)
     if parsed_url_result.netloc != 'www.tiktok.com':
         return json({"Error": f"Unsupported url {url}"})
 
+    # pass the args to yt-dlp, required app_info which is unique iid for each device
+    # you can change the api_hostname if needed
     ydl_opts ={
         "skip_download": True,
         "format": "best",
@@ -140,6 +157,7 @@ async def get_tiktok_video(src: str=''):
 
 
 async def get_yt_blob(src:str):
+    # download cookie for yt
     tmp_cookies = download_cookies()
     # tmp_cookies = move_cookie_to_tmp()
 
@@ -160,6 +178,7 @@ async def get_yt_blob(src:str):
         },
     }
 
+    # extract the url and return as stream response
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(src, download=False)
         video_url = info_dict['url']
