@@ -132,8 +132,8 @@ async def get_yt_blob(src: str):
         info_dict = ydl.extract_info(src, download=False)
         video_url = info_dict.get('url', None)
 
-        if not video_url:
-            raise HTTPException(status_code=404, detail="Video URL not found")
+        # if not video_url:
+        #     raise HTTPException(status_code=404, detail="Video URL not found")
 
         # response = requests.get(video_url, stream=True)
         # if response.status_code != 200:
