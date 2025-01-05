@@ -126,6 +126,17 @@ async def get_yt_blob(src:str):
         'cookiefile': tmp_cookies,
         'format': 'best',
         'quiet': True,
+        "skip_download": True,
+        "extractor_args": {
+            "tiktok": {
+                # "api_hostname": ["api16-normal-c-useast1a.tiktokv.com"],
+                "app_info": ["7318518857994389254"],
+                "device_id": ["7318517321748022790"],
+                "app_version":["34.0.3"],
+                "manifest_app_version": ["340003"],
+                "aid": ["7137940811609768961"]
+            }
+        },
     }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
