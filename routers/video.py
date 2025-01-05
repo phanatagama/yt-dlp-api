@@ -135,11 +135,11 @@ async def get_yt_blob(src: str):
         if not video_url:
             raise HTTPException(status_code=404, detail="Video URL not found")
 
-        response = requests.get(video_url, stream=True)
-        if response.status_code != 200:
-            raise HTTPException(status_code=500, detail="Failed to fetch video")
+        # response = requests.get(video_url, stream=True)
+        # if response.status_code != 200:
+        #     raise HTTPException(status_code=500, detail="Failed to fetch video")
 
         return {
-            "url": response.url
+            "url": video_url
         }
         # return StreamingResponse(BytesIO(response.content), media_type="video/mp4")
