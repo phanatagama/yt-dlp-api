@@ -3,14 +3,17 @@ from urllib.parse import urlparse
 import os
 import shutil
 
+from fastapi.responses import StreamingResponse
+from io import BytesIO
+from fastapi import FastAPI, HTTPException
+
 
 async def get_api_version():
     return {
         'version': '0.0.1',
     }
 
-async def extract_video_info(src: str = ''):
-    # po_token ="MnQ4RCUX1rkNwTh8YuYQC-fXgf_g3KsJY3NyPsBPBUBzQRBT6q0ZHOE7QPT4k8WRvAXqpRUps_NkCGVvZN6OuwYL0ItXqkMi4iqfWjvDrKduMM2kckSI7nwU1W2ElNr_1aqIQ1M3gLWQqxM9IunkAos9X4dCSA=="
+def move_cookie_to_tmp():
     # cookies_file = "cookies.txt"  # Path to your cookies file
     # copy cookies.txt into /tmp
     path = "/tmp"
@@ -19,6 +22,11 @@ async def extract_video_info(src: str = ''):
     tmp_cookies = os.path.join(path, "cookies.txt")
 
     dest = shutil.copyfile("cookies.txt", tmp_cookies)
+    return tmp_cookies
+    
+async def extract_video_info(src: str = ''):
+    # po_token ="MnQ4RCUX1rkNwTh8YuYQC-fXgf_g3KsJY3NyPsBPBUBzQRBT6q0ZHOE7QPT4k8WRvAXqpRUps_NkCGVvZN6OuwYL0ItXqkMi4iqfWjvDrKduMM2kckSI7nwU1W2ElNr_1aqIQ1M3gLWQqxM9IunkAos9X4dCSA=="
+    tmp_cookies = move_cookie_to_tmp()
 
     ydl_opts = {
         'cookiefile': tmp_cookies,
@@ -109,3 +117,26 @@ async def get_tiktok_video(src: str=''):
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(url, download=False)
         return info
+
+
+async def get_yt_blob(src: str):
+    tmp_cookies = move_cookie_to_tmp()
+
+    ydl_opts = {
+        'cookiefile': tmp_cookies,
+        'format': 'best',
+        'quiet': True,
+    }
+
+    with YoutubeDL(ydl_opts) as ydl:
+        info_dict = ydl.extract_info(src, download=False)
+        video_url = info_dict.get('url', None)
+
+        if not video_url:
+            raise HTTPException(status_code=404, detail="Video URL not found")
+
+        response = requests.get(video_url, stream=True)
+        if response.status_code != 200:
+            raise HTTPException(status_code=500, detail="Failed to fetch video")
+
+        return StreamingResponse(BytesIO(response.content), media_type="video/mp4")

@@ -33,6 +33,7 @@ app.include_router(info_router)
 app.include_router(video_info_router)
 app.include_router(tiktok_router)
 app.include_router(instagram_router)
+app.include_router(yt_blob_router)
 
 app.add_middleware(
     CORSMiddleware,
